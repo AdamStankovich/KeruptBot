@@ -77,7 +77,6 @@ const startOsuBot = async () => {
         case prefix + "maps":
           var json = await getAccessTokenPromise();
           var key = json.access_token;
-          // LEFT OFF HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           json = await getBeatmaps("4398740", "graveyard", key);
           console.log(json);
           return await user.sendMessage(``);
