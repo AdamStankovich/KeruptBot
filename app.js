@@ -81,11 +81,15 @@ const startOsuBot = async () => {
           const day = new Date().toLocaleString("en-us", { weekday: "long" });
           return await user.sendMessage(`It is ${day}.`);
         // Get user maps
-        case prefix + "maps":
+        case prefix + "newmaps":
           var json = await getAccessTokenPromise();
           var key = json.access_token;
-          json = await getBeatmaps("4398740", "graveyard", key);
-          console.log(json);
+          for (var i = 0; i < followdict[user.ircUsername].length; i++) {
+            json = await getBeatmaps(followdict[user.ircUsername][i], "unranked", key);
+            for (var j = 0; j < json.length; j++) {
+              await user.sendMessage(`osu.ppy.sh/beatmaps/${json[j].id}/`);
+            }
+          }
           return await user.sendMessage(``);
         case prefix + "follow":
           // Get the userID from the message
@@ -108,7 +112,6 @@ const startOsuBot = async () => {
             followdict[user.ircUsername] = [userid];
             return await user.sendMessage(`You followed ${userid}.`);
           }
-          console.log(JSON.stringify(followdict));
       }
     });
   } catch (error) {
