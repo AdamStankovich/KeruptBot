@@ -25,8 +25,8 @@ This is a surface level tutorial on intializing an osu! IRC bot from this reposi
 
 ## 1. OAuth
 - An OAuth application needs to be registered via the osu! website: https://osu.ppy.sh/home/account/edit#oauth. 
-- Create your application with "New OAuth Application" <br> ![OAuth](/tutorial/newoauth.png)
-- This will display your own Client ID and Client Secret. (Keep these noted for later.) <br> ![OAuth2](/tutorial/newoauth2.png)
+- Create the application with "New OAuth Application" <br> ![OAuth](/tutorial/newoauth.png)
+- This will display a personalized Client ID and Client Secret. (Keep these noted for later.) <br> ![OAuth2](/tutorial/newoauth2.png)
 
 ## 2. NPM
  - Initialize NPM in an integrated terminal. 
@@ -53,7 +53,7 @@ npm install bancho.js
 ## 4. app.js:
  - Import "app.js" from this repository into your directory
  - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc) (Keep these noted for later.) <br> ![ircsetup](/tutorial/ircsetup.png)
- - Inside of the app.js file, you will see two constants. Remove the first two lines as these were used to import our own personal bancho IRC username/password into the file. In the "client" const, substitute "USERNAME" and "PASSWORD" for your own username and server password retrieved from the link above.
+ - Inside of the app.js file, there are two constants. Remove the first two lines as these were used to import personalized credentials into the file. In the "client" const, *USERNAME* and *PASSWORD* are substituted for personal username / server password retrieved from the IRC link above.
  ```js
  // Personal info file (dont include)
 const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
@@ -64,7 +64,7 @@ const client = new Banchojs.BanchoClient({
   password: PASSWORD,
 });
  ```
-  - Next, we have created a function to retrieve your OAuth2 token. This is specific to the owner of the bot. Replace "CLIENTID" and "CLIENTSECRET" with your own information listed above. (Again, these are variables imported from another file in the original project.)
+  - Next is the function created to retrieve your OAuth2 token. This is specific to the owner of the bot. Replace "CLIENTID" and "CLIENTSECRET" with personal credentials. (these are variables imported from another file in the original project.)
   ```js
   // Function to retrieve access_token
 async function getAccessTokenPromise() {
@@ -98,7 +98,7 @@ switch (command) {
 }
  ```
 ## Initializing the IRC bot:
- -  Once the file is set up appropriately with the users personal information and commands, get osu!bot running by entering the following into the terminal:
+ -  Once the file is set up appropriately with the users personalized information and commands, osu!bot can be initialized with the following command:
  ```
  node app.js
  ```
