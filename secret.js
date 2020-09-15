@@ -1,8 +1,0 @@
-const CLIENTID = 2679;
-const CLIENTSECRET = "t67kpTmtOVm14gTdNXG1WrbxRMJJIufIuh0wPlBh";
-const USERNAME = "Kerupt";
-const PASSWORD = "54b46870";
-exports.CLIENTID = CLIENTID;
-exports.CLIENTSECRET = CLIENTSECRET;
-exports.USERNAME = USERNAME;
-exports.PASSWORD = PASSWORD;
