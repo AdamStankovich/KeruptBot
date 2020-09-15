@@ -1,4 +1,4 @@
-<h1 align="center">IRC osu! Map Request Bot</h1>
+# IRC osu! Map Request Bot
 
 ## Table of Contents
 
@@ -20,29 +20,43 @@ This is a basic IRC bot created with the intention of users being able to reques
 * [Node.js](https://nodejs.org/en/)
 * [Bancho.js](https://bancho.js.org/)
 
+# Installation
 
-## Getting Started
+This is a surface level tutorial on intializing an osu! IRC bot from this repository.
 
-This is a surface level tutorial on intializing the osu! IRC bot from this repository.
-
-### Prerequisites
+## Prerequisites
 
 Before you get started, there are a few prerequisites to get installed in order for the bot to function properly.
 * Node.js
 * Bancho.js
 
-### Installation
-
-1. Initialize NPM in an integrated terminal. When prompted for an entry point, we will be using "app.js"
+**1. NPM**
+ - Initialize NPM in an integrated terminal. 
 ```sh
 npm init
 ```
-2. Install bancho.js:
+ - The following will be prompted, enter the corresponding inputs:
+```sh
+package name: arbitrary
+version: hit enter
+description: arbitrary
+entry point: app.js
+test command: hit enter
+git repository: hit enter
+keywords: hit enter
+liscense: hit enter
+Is this OK? (yes): yes
+```
+
+**2. bancho.js:**
 ```sh
 npm install bancho.js
 ```
-3. Create "app.js" in directory
-4. Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
+**3. APP.JS**
+ - Import "app.js" from this repository into your directory
+ - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
+ 
+
 
 ## Contact
 
