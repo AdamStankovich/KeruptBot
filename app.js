@@ -69,6 +69,7 @@ const startOsuBot = async () => {
           return await user.sendMessage(
             `List of commands: !hello, !day, !maps [mappername]`
           );
+          // Says hello to the user
         case prefix + "hello":
           return await user.sendMessage(`Sup ${user.ircUsername}`);
         case prefix + "day":
