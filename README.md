@@ -24,8 +24,8 @@ This is a surface level tutorial on intializing an osu! IRC bot from this reposi
 
 ## 1. OAuth
 - An OAuth application needs to be registered via the osu! website: https://osu.ppy.sh/home/account/edit#oauth. 
-- Click "New OAuth Application" <br> ![OAuth](/tutorial/newoauth.png)
-- This will display your own Client ID and Client Secret. We will be using these later, so keep this information noted down. <br> ![OAuth2](/tutorial/newoauth2.png)
+- Create your application with "New OAuth Application" <br> ![OAuth](/tutorial/newoauth.png)
+- This will display your own Client ID and Client Secret. (Keep these noted for later.) <br> ![OAuth2](/tutorial/newoauth2.png)
 
 ## 2. NPM
  - Initialize NPM in an integrated terminal. 
@@ -51,7 +51,7 @@ npm install bancho.js
 ```
 ## 4. app.js:
  - Import "app.js" from this repository into your directory
- - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc) <br> ![ircsetup](/tutorial/ircsetup.png)
+ - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc) (Keep these noted for later.) <br> ![ircsetup](/tutorial/ircsetup.png)
  - Inside of the app.js file, you will see two constants. Remove the first two lines as these were used to import our own personal bancho IRC username/password into the file. In the "client" const, substitute "USERNAME" and "PASSWORD" for your own username and server password retrieved from the link above.
  ```js
  // Personal info file (dont include)
