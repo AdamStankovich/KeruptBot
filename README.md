@@ -1,5 +1,7 @@
 # IRC osu! Map Request Bot
 
+@all-contributors add
+
 ## Table of Contents
 
 * [About the Project](#about-the-project)
