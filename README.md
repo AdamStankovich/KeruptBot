@@ -36,11 +36,10 @@ npm install npm@latest -g
 ### Installation
 
 1. Open your directory with code
-2. In an integrated terminal, initialize NPM (creates package.json):
+2. In an integrated terminal, initialize NPM using the command shown below. When prompted for an entry point, we will be using "app.js"
 ```sh
 npm init
 ```
-When prompted for an entry point, we will be using app.js <br>
 3. Install bancho.js:
 ```sh
 npm install bancho.js
