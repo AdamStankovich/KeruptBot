@@ -88,20 +88,15 @@ async function getAccessTokenPromise() {
   ```
  - **The Command List:** The command list will be found and edited through app.js. Commands are added using the case prefix variable set earlier in the file concatinated with the desired phrase.
  ```js
-       // Command list
-      switch (command) {
-        case prefix + "help":
-          return await user.sendMessage(
-            `List of commands: !hello`
-          );
-        case prefix + "hello":
-          return await user.sendMessage(`Sup ${user.ircUsername}`);
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+ // Command list
+switch (command) {
+  case prefix + "help":
+    return await user.sendMessage(
+      `List of commands: !hello`
+    );
+   case prefix + "hello":
+     return await user.sendMessage(`Sup ${user.ircUsername}`);
+}
  ```
 ## Initializing the IRC bot:
  -  Once the file is set up appropriately with the users personal information and commands, get osu!bot running by entering the following into the terminal:
