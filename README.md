@@ -29,9 +29,7 @@ This is a surface level tutorial on intializing the osu! IRC bot from this repos
 
 Before you get started, there are a few prerequisites to get installed in order for the bot to function properly.
 * Node.js
-```sh
-npm install npm@latest -g
-```
+* Bancho.js
 
 ### Installation
 
