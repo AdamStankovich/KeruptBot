@@ -1,2 +1,2 @@
 # OsuMapBot
-IRC bot for osu! created with the intention of grabbing beatmaps from different players profiles when prompted from 
+IRC bot for osu! created with the intention of grabbing beatmaps from different players profiles when prompted from users in bancho.
