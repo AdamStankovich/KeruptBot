@@ -13,6 +13,12 @@ const client = new Banchojs.BanchoClient({
 // Prefix for the commands(what the user types). i.e. (!, ., etc.)
 const prefix = "!";
 
+var followdict = new Object();
+// TODO
+// Read from file and populate dictionary
+
+
+
 // Function to retrieve access_token
 async function getAccessTokenPromise() {
   const res = await fetch("https://osu.ppy.sh/oauth/token", {
@@ -83,6 +89,19 @@ const startOsuBot = async () => {
           json = await getBeatmaps("4398740", "graveyard", key);
           console.log(json);
           return await user.sendMessage(``);
+        case prefix + "follow":
+          // Get the userID from the message
+          var userid = message.split(" ")[1];
+          // If the user who sent the message is in the dictionary
+          if (followdict[user.ircUsername]) {
+            // Append the followed user to the dictionary
+            followdict[user.ircUsername].push(userid);
+          }
+          else {
+            // Create the new key in the dictionary with the followed user as the value in an array
+            followdict[user.ircUsername] = [userid];
+          }
+          console.log(JSON.stringify(followdict));
       }
     });
   } catch (error) {
