@@ -43,3 +43,9 @@ npm install npm@latest -g
 
 Adam Stankovich - apsofatl@gmail.com
 Jeremy Pasquino - jeremypasquino@gmail.com
+
+## References
+
+https://osu.ppy.sh/docs/index.html?javascript#introduction
+https://www.youtube.com/watch?v=QfeZjpQApIw&ab_channel=AntoNosu%21
+https://osu.ppy.sh/p/irc
