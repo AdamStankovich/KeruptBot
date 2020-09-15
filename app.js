@@ -69,7 +69,7 @@ const startOsuBot = async () => {
           return await user.sendMessage(
             `List of commands: !hello, !day, !maps [mappername]`
           );
-        // Says hello to the user
+        // Says hello to the user @apsofatl fix this please
         case prefix + "hello":
           return await user.sendMessage(`Sup ${user.ircUsername}`);
         // tell user the day of the week
