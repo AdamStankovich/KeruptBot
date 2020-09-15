@@ -74,6 +74,7 @@ const startOsuBot = async () => {
         case prefix + "day":
           const day = new Date().toLocaleString("en-us", { weekday: "long" });
           return await user.sendMessage(`It is ${day}.`);
+          // Get user maps
         case prefix + "maps":
           var json = await getAccessTokenPromise();
           var key = json.access_token;
