@@ -35,16 +35,15 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Open your directory with code
-2. In an integrated terminal, initialize NPM using the command shown below. When prompted for an entry point, we will be using "app.js"
+1. Initialize NPM in an integrated terminal. When prompted for an entry point, we will be using "app.js"
 ```sh
 npm init
 ```
-3. Install bancho.js:
+2. Install bancho.js:
 ```sh
 npm install bancho.js
 ```
-4. Create "app.js" in directory
+3. Create "app.js" in directory
 4. Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
 
 ## Contact
