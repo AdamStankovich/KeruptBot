@@ -4,9 +4,8 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Getting Started](#getting-started)
+* [Installation](#installation)
   * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
 * [Contact](#contact)
 
 ## About The Project
@@ -30,7 +29,7 @@ Before you get started, there are a few prerequisites to get installed in order 
 * Node.js
 * Bancho.js
 
-**1. NPM**
+### 1. NPM
  - Initialize NPM in an integrated terminal. 
 ```sh
 npm init
@@ -48,11 +47,11 @@ liscense: hit enter
 Is this OK? (yes): yes
 ```
 
-**2. bancho.js:**
+### 2. bancho.js:
 ```sh
 npm install bancho.js
 ```
-**3. APP.JS**
+### 3. app.js:
  - Import "app.js" from this repository into your directory
  - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
  
