@@ -17,8 +17,6 @@ var followdict = new Object();
 // TODO
 // Read from file and populate dictionary
 
-
-
 // Function to retrieve access_token
 async function getAccessTokenPromise() {
   const res = await fetch("https://osu.ppy.sh/oauth/token", {
@@ -92,14 +90,23 @@ const startOsuBot = async () => {
         case prefix + "follow":
           // Get the userID from the message
           var userid = message.split(" ")[1];
-          // If the user who sent the message is in the dictionary
+          // If the user who sent the message is already in the dictionary
           if (followdict[user.ircUsername]) {
-            // Append the followed user to the dictionary
+            // If the user already follows the mapper, return
+            if (followdict[user.ircUsername].includes(userid)) {
+              return await user.sendMessage(
+                `You already follow ${userid} dumbass.`
+              );
+            }
+            // Append the mapper to the dictionary
             followdict[user.ircUsername].push(userid);
+            return await user.sendMessage(`You followed ${userid}.`);
           }
+          // If the user who sent the message is NOT already in the dictionary
           else {
-            // Create the new key in the dictionary with the followed user as the value in an array
+            // Create the new key in the dictionary with the mapper as the value in an array
             followdict[user.ircUsername] = [userid];
+            return await user.sendMessage(`You followed ${userid}.`);
           }
           console.log(JSON.stringify(followdict));
       }
