@@ -11,6 +11,10 @@
 
 ## About The Project
 
+This is a basic IRC bot created with the intention of users being able to request a list of beatmaps from a specified map creator, Using commands such as 
+```sh
+!maps [mapper]
+```
 
 ### Built With
 * [Node.js](https://nodejs.org/en/)
