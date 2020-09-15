@@ -69,13 +69,14 @@ const startOsuBot = async () => {
           return await user.sendMessage(
             `List of commands: !hello, !day, !maps [mappername]`
           );
+        // hello command
         case prefix + "hello":
           return await user.sendMessage(`Sup ${user.ircUsername}`);
         // tell user the day of the week
         case prefix + "day":
           const day = new Date().toLocaleString("en-us", { weekday: "long" });
           return await user.sendMessage(`It is ${day}.`);
-          // Get user maps
+        // Get user maps
         case prefix + "maps":
           var json = await getAccessTokenPromise();
           var key = json.access_token;
