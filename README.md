@@ -40,7 +40,7 @@ npm install npm@latest -g
 ```sh
 npm init
 ```
-When prompted for an entry point, we will be using app.js
+When prompted for an entry point, we will be using app.js <br>
 3. Install bancho.js:
 ```sh
 npm install bancho.js
