@@ -24,8 +24,8 @@ This is a surface level tutorial on intializing an osu! IRC bot from this reposi
 
 ## 1. OAuth
 - An OAuth application needs to be registered via the osu! website: https://osu.ppy.sh/home/account/edit#oauth. 
-Click "New OAuth Application" ![OAuth](/tutorial/newoauth.png)
-This will display your own Client ID and Client Secret. Mark these down for later ![OAuth2](/tutorial/newoauth2.png)
+- Click "New OAuth Application" <br> ![OAuth](/tutorial/newoauth.png)
+- This will display your own Client ID and Client Secret. We will be using these later, so keep this information noted down. <br> ![OAuth2](/tutorial/newoauth2.png)
 
 ## 2. NPM
  - Initialize NPM in an integrated terminal. 
