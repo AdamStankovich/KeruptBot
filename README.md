@@ -1,5 +1,7 @@
 # IRC osu! Map Request Bot
 
+[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/0)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/0)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/1)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/1)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/2)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/2)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/3)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/3)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/4)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/4)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/5)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/5)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/6)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/6)[![](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/images/7)](https://sourcerer.io/fame/apsofatl/apsofatl/OsuMapBot/links/7)
+
 ## Table of Contents
 
 * [About the Project](#about-the-project)
