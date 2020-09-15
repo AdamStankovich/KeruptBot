@@ -1,6 +1,8 @@
 # IRC osu! Map Request Bot
 
-Contributors: [https://github.com/apsofatl](apsofatl)  [https://github.com/jpasqui](jpasqui)
+Contributors: 
+* [apsofatl](https://github.com/apsofatl)  
+* [jpasqui](https://github.com/jpasqui)
 
 ## Table of Contents
 
