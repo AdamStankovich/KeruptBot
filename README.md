@@ -41,8 +41,8 @@ npm install npm@latest -g
 
 ## Contact
 
-Adam Stankovich - apsofatl@gmail.com
-Jeremy Pasquino - jeremypasquino@gmail.com
+* Adam Stankovich - apsofatl@gmail.com
+* Jeremy Pasquino - jeremypasquino@gmail.com
 
 ## References
 
