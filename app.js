@@ -72,6 +72,7 @@ const startOsuBot = async () => {
           // Says hello to the user
         case prefix + "hello":
           return await user.sendMessage(`Sup ${user.ircUsername}`);
+        // tell user the day of the week
         case prefix + "day":
           const day = new Date().toLocaleString("en-us", { weekday: "long" });
           return await user.sendMessage(`It is ${day}.`);
