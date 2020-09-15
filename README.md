@@ -23,21 +23,30 @@ This is a basic IRC bot created with the intention of users being able to reques
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+This is a surface level tutorial on intializing the osu! IRC bot from this repository.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Before you get started, there are a few prerequisites to get installed in order for the bot to function properly.
+* Node.js
 ```sh
 npm install npm@latest -g
 ```
 
 ### Installation
 
-1. Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
-2.
+1. Open your directory with code
+2. In an integrated terminal, initialize NPM (creates package.json):
+```sh
+npm init
+```
+When prompted for an entry point, we will be using app.js
+3. Install bancho.js:
+```sh
+npm install bancho.js
+```
+4. Create "app.js" in directory
+4. Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
 
 ## Contact
 
