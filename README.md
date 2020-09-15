@@ -9,7 +9,7 @@
 
 ## About The Project
 
-This is a basic IRC bot created with the intention of users being able to request a list of beatmaps from a specified map creator, Using commands such as 
+An expansion of the open source project Bancho.js, used to interact with the official osu! server (Bancho). This is a basic IRC bot created with the intention of users being able to request a list of beatmaps from a specified map creator, Using commands such as 
 ```
 !maps [mapper]
 ```
@@ -22,7 +22,12 @@ This is a basic IRC bot created with the intention of users being able to reques
 
 This is a surface level tutorial on intializing an osu! IRC bot from this repository.
 
-## 1. NPM
+## 1. OAuth
+- An OAuth application needs to be registered via the osu! website: https://osu.ppy.sh/home/account/edit#oauth. 
+Click "New OAuth Application" ![OAuth](/tutorial/newoauth.png)
+This will display your own Client ID and Client Secret. Mark these down for later ![OAuth2](/tutorial/newoauth2.png)
+
+## 2. NPM
  - Initialize NPM in an integrated terminal. 
 ```js
 npm init
@@ -40,14 +45,14 @@ liscense: hit enter
 Is this OK? (yes): yes
 ```
 
-## 2. bancho.js:
+## 3. bancho.js:
 ```
 npm install bancho.js
 ```
-## 3. app.js:
+## 4. app.js:
  - Import "app.js" from this repository into your directory
  - Retrieve your IRC username/password at [https://osu.ppy.sh/p/irc](https://osu.ppy.sh/p/irc)
- - Inside of the app.js file, you will see two constants: remove the first two lines, these were used to import our own personal bancho IRC username/password into the file. In the "client" const, substitute "USERNAME" and "PASSWORD" for your own username and server password retrieved from the link above.
+ - Inside of the app.js file, you will see two constants. Remove the first two lines as these were used to import our own personal bancho IRC username/password into the file. In the "client" const, substitute "USERNAME" and "PASSWORD" for your own username and server password retrieved from the link above.
  ```js
  // Personal info file (dont include)
 const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
