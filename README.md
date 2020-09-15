@@ -2,10 +2,6 @@
 <p align="center">
   <h3 align="center">IRC osu! Map Request Bot</h3>
 
-  <p align="center">
-    Created by Adam Stankovich & Jeremy Pasquino
-</p>
-
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
