@@ -87,7 +87,7 @@ const startOsuBot = async () => {
           for (var i = 0; i < followdict[user.ircUsername].length; i++) {
             json = await getBeatmaps(followdict[user.ircUsername][i], "unranked", key);
             for (var j = 0; j < json.length; j++) {
-              await user.sendMessage(`osu.ppy.sh/beatmaps/${json[j].id}/`);
+              await user.sendMessage(`osu.ppy.sh/beatmapsets/${json[j].id}/`);
             }
           }
           return await user.sendMessage(``);
