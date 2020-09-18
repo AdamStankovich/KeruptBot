@@ -129,6 +129,7 @@ async function unfollow(user, followdict, message) {
 	}
 }
 
+// Shows a list of mappers the user is following
 async function following(user, followdict) {
 	var str = ``
 	for (var i = 0; i < followdict[user.ircUsername].length; i++) {
