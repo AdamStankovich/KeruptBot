@@ -84,10 +84,10 @@ const startOsuBot = async () => {
 					await commands.newmaps(user, followdict);
 					break;
 				case prefix + "follow":
-					await commands.follow(user, followdict);
+					await commands.follow(user, followdict, message);
 					break;
 				case prefix + "unfollow":
-					await commands.unfollow(user, followdict);
+					await commands.unfollow(user, followdict, message);
 					break;
 			}
 		});

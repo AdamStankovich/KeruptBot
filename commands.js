@@ -33,7 +33,7 @@ async function newmaps(user, followdict) {
 }
 
 // Lets the user follow a mapper
-async function follow(user, followdict) {
+async function follow(user, followdict, message) {
 	// Get the userID from the message
 	var userid = message.split(" ")[1];
 	// If the user who sent the message is already in the dictionary
@@ -57,7 +57,7 @@ async function follow(user, followdict) {
 }
 
 // Lets the user unfollow a mapper
-async function unfollow(user, followdict) {
+async function unfollow(user, followdict, message) {
 	var userid = message.split(" ")[1];
 	if (followdict[user.ircUsername].includes(userid)) {
 		unfollow = followdict[user.ircUsername].indexOf(userid);
