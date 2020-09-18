@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 // Personal info file (dont include)
 const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
 
-// File of user commands
+// Commands file
 const commands = require("./commands");
 
 // Login to bancho server
@@ -18,12 +18,12 @@ const client = new Banchojs.BanchoClient({
 // Prefix for the commands(what the user types). i.e. (!, ., etc.)
 const prefix = "!";
 
-// Create the following dictionary
+// Create the following dict
 var followdict = new Object();
 // Read from file and populate dictionary
 // TODO
 
-// Function to retrieve access_token
+// Retrieve access_token
 async function getAccessTokenPromise() {
 	const res = await fetch("https://osu.ppy.sh/oauth/token", {
 		method: "post",
@@ -42,7 +42,7 @@ async function getAccessTokenPromise() {
 	return res.json();
 }
 
-// Function to retrieve beatmaps from mapper
+// Retrieve beatmaps from mapper
 async function getBeatmaps(user, type, key) {
 	const res = await fetch(
 		`https://osu.ppy.sh/api/v2/users/${user}/beatmapsets/${type}`,
@@ -59,7 +59,7 @@ async function getBeatmaps(user, type, key) {
 	return res.json();
 }
 
-// Creating the osubot function
+// The actual bot function
 const startOsuBot = async () => {
 	try {
 		await client.connect();
@@ -79,9 +79,6 @@ const startOsuBot = async () => {
 					break;
 				case prefix + "hello":
 					await commands.hello(user);
-					break;
-				case prefix + "day":
-					await commands.day(user);
 					break;
 				case prefix + "newmaps":
 					await commands.newmaps(user, followdict);

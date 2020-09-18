@@ -1,22 +1,16 @@
 // List commands for the user
 async function help(user) {
 	return await user.sendMessage(
-		`List of commands: !hello, !day, !maps [mappername]`
+		`List of commands: !hello, !newmaps, !follow [mapperID], !unfollow [mapperID]`
 	);
 }
 
-// Say hello to the user
+// Says hello to the user
 async function hello(user) {
 	return await user.sendMessage(`Sup ${user.ircUsername}`);
 }
 
-// Tell user the day of the week
-async function day(user) {
-	const day = new Date().toLocaleString("en-us", { weekday: "long" });
-	return await user.sendMessage(`It is ${day}.`);
-}
-
-// Get new user maps
+// Gets the user new maps
 async function newmaps(user, followdict) {
 	if (followdict[user.ircusername] !== undefined) {
 		var json = await getAccessTokenPromise();
@@ -74,4 +68,4 @@ async function unfollow(user, followdict) {
 	}
 }
 
-module.exports = { help, hello, day, newmaps, follow, unfollow };
+module.exports = { help, hello, newmaps, follow, unfollow };
