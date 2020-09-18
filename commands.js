@@ -54,6 +54,7 @@ function secondsToMinutes(seconds) {
 }
 
 
+////////////////////////////////// COMMANDS //////////////////////////////////
 
 // List commands for the user
 async function help(user) {
@@ -80,7 +81,7 @@ async function newmaps(user, followdict) {
 			);
 			for (var j = 0; j < json.length; j++) {
 				await user.sendMessage(
-					`[https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉`
+					`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉`
 				);
 			}
 		}
@@ -128,4 +129,18 @@ async function unfollow(user, followdict, message) {
 	}
 }
 
-module.exports = { help, hello, newmaps, follow, unfollow };
+async function following(user, followdict) {
+	var str = ``
+	for (var i = 0; i < followdict[user.ircUsername].length; i++) {
+		if (i !== followdict[user.ircUsername].length - 1) {
+			str += `${followdict[user.ircUsername][i]}, `
+		}
+		else {
+			str += `${followdict[user.ircUsername][i]}`
+		}
+
+	}
+	await user.sendMessage(`You are following: ${str}`);
+}
+
+module.exports = { help, hello, newmaps, follow, unfollow, following };

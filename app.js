@@ -23,8 +23,6 @@ var followdict = new Object();
 // Read from file and populate dictionary
 // TODO
 
-
-
 // The actual bot function
 const startOsuBot = async () => {
 	try {
@@ -54,6 +52,9 @@ const startOsuBot = async () => {
 					break;
 				case prefix + "unfollow":
 					followdict = await commands.unfollow(user, followdict, message);
+					break;
+				case prefix + "following":
+					await commands.following(user, followdict);
 					break;
 			}
 		});
