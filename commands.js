@@ -2,7 +2,7 @@
 // Import Libraries
 const fetch = require("node-fetch");
 
-// Personal info file (dont include)
+// Personal info file
 const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
 
 

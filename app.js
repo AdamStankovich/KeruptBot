@@ -2,7 +2,7 @@
 // Import Libraries
 const Banchojs = require("bancho.js");
 
-// Personal info file (dont include)
+// Personal info file
 const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
 
 // Commands file
@@ -10,7 +10,7 @@ const commands = require("./commands");
 
 // Login to bancho server
 const client = new Banchojs.BanchoClient({
-	// Substitute for your osu! IRC username/password
+	// osu! IRC username/password
 	username: USERNAME,
 	password: PASSWORD,
 });
