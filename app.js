@@ -85,9 +85,16 @@ const startOsuBot = async () => {
           var json = await getAccessTokenPromise();
           var key = json.access_token;
           for (var i = 0; i < followdict[user.ircUsername].length; i++) {
-            json = await getBeatmaps(followdict[user.ircUsername][i], "unranked", key);
+            json = await getBeatmaps(
+              followdict[user.ircUsername][i],
+              "unranked",
+              key
+            );
             for (var j = 0; j < json.length; j++) {
-              await user.sendMessage(`osu.ppy.sh/beatmapsets/${json[j].id}/`);
+              await user.sendMessage(
+                `https://osu.ppy.sh/beatmapsets/${json[j].id}/`
+              );
+              console.log(json[j]);
             }
           }
           return await user.sendMessage(``);
@@ -111,6 +118,14 @@ const startOsuBot = async () => {
             // Create the new key in the dictionary with the mapper as the value in an array
             followdict[user.ircUsername] = [userid];
             return await user.sendMessage(`You followed ${userid}.`);
+          }
+        case prefix + "unfollow":
+          var userid = message.split(" ")[1];
+          if (followdict[user.ircUsername].includes(userid)) {
+            followdict[user.ircUsername].remove(userid);
+            return await user.sendMessage(`You unfollowed ${userid}`);
+          } else {
+            return await user.sendMessage(`You don't follow ${userid}`);
           }
       }
     });
