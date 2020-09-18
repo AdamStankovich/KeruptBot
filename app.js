@@ -35,7 +35,7 @@ async function getAccessTokenPromise() {
   });
   return res.json();
 }
-
+// Function to retrieve beatmaps from mapper
 async function getBeatmaps(user, type, key) {
   const res = await fetch(
     `https://osu.ppy.sh/api/v2/users/${user}/beatmapsets/${type}`,
@@ -82,22 +82,27 @@ const startOsuBot = async () => {
           return await user.sendMessage(`It is ${day}.`);
         // Get user maps
         case prefix + "newmaps":
-          var json = await getAccessTokenPromise();
-          var key = json.access_token;
-          for (var i = 0; i < followdict[user.ircUsername].length; i++) {
-            json = await getBeatmaps(
-              followdict[user.ircUsername][i],
-              "unranked",
-              key
-            );
-            for (var j = 0; j < json.length; j++) {
-              await user.sendMessage(
-                `https://osu.ppy.sh/beatmapsets/${json[j].id}/`
+          if (followdict[user.ircusername] !== undefined) {
+            var json = await getAccessTokenPromise();
+            var key = json.access_token;
+            for (var i = 0; i < followdict[user.ircUsername].length; i++) {
+              json = await getBeatmaps(
+                followdict[user.ircUsername][i],
+                "unranked",
+                key
               );
-              console.log(json[j]);
+              for (var j = 0; j < json.length; j++) {
+                await user.sendMessage(
+                  `https://osu.ppy.sh/beatmapsets/${json[j].id}/`
+                );
+                console.log(json[j]);
+              }
             }
+          } else {
+            return await user.sendMessage(
+              `You aren't following any mappers yet.`
+            );
           }
-          return await user.sendMessage(``);
         case prefix + "follow":
           // Get the userID from the message
           var userid = message.split(" ")[1];
@@ -122,7 +127,8 @@ const startOsuBot = async () => {
         case prefix + "unfollow":
           var userid = message.split(" ")[1];
           if (followdict[user.ircUsername].includes(userid)) {
-            followdict[user.ircUsername].remove(userid);
+            unfollow = followdict[user.ircUsername].indexOf(userid);
+            followdict[user.ircUsername].splice(unfollow, 1);
             return await user.sendMessage(`You unfollowed ${userid}`);
           } else {
             return await user.sendMessage(`You don't follow ${userid}`);
