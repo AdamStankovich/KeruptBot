@@ -78,19 +78,23 @@ async function getUsername(userid, key) {
 	return res.json();
 }
 
-
 ////////////////////////////////// COMMANDS //////////////////////////////////
 
 // List commands for the user
 async function help(user) {
 	return await user.sendMessage(
-		`List of commands: !hello, !newmaps, !follow [mapperID], !unfollow [mapperID]`
+		`List of commands: !about, !hello, !follow [mappername], !unfollow [mapperID], !following`
 	);
+}
+
+// About this bot
+async function about(user) {
+	return await user.sendMessage(`You can use this bot to follow your favorite mappers. Instead of having to go through all of their profiles looking for new maps, this bot will send you links to anything they've uploaded in the last 30 days. Created by [https://osu.ppy.sh/users/4398740 Kerupt] and [https://osu.ppy.sh/users/7965914 SouthTTV]`);
 }
 
 // Says hello to the user
 async function hello(user) {
-	return await user.sendMessage(`Sup ${user.id}`);
+	return await user.sendMessage(`Sup ${user.ircUsername}`);
 }
 
 // Gets the user new maps
@@ -117,7 +121,7 @@ async function newmaps(user, followdict) {
 
 // Lets the user follow a mapper
 async function follow(user, followdict, message) {
-	
+
 	// Get the user from the message
 	var username = message.split(" ")[1];
 
@@ -181,4 +185,4 @@ async function following(user, followdict) {
 	await user.sendMessage(`You are following: ${str}`);
 }
 
-module.exports = { help, hello, newmaps, follow, unfollow, following, getUserId };
+module.exports = { about, help, hello, newmaps, follow, unfollow, following, getUserId };

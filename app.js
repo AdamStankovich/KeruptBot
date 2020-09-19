@@ -14,8 +14,8 @@ const commands = require("./commands");
 const client = new Banchojs.BanchoClient({
 	// osu! IRC username/password
 	username: USERNAME,
-    password: PASSWORD,
-    apiKey: CLIENTSECRET,
+	password: PASSWORD,
+	apiKey: CLIENTSECRET,
 });
 
 // Prefix for the commands(what the user types). i.e. (!, ., etc.)
@@ -26,8 +26,8 @@ var followdict = new Object();
 
 // Read from file and populate dictionary
 if (fs.existsSync("follow.json")) {
-    var rawdata = fs.readFileSync('follow.json');
-    followdict = JSON.parse(rawdata);
+	var rawdata = fs.readFileSync('follow.json');
+	followdict = JSON.parse(rawdata);
 }
 
 // The actual bot function
@@ -37,8 +37,8 @@ const startOsuBot = async () => {
 		console.log("osu!bot Connected...");
 		client.on("PM", async ({ message, user }) => {
 			// Check if message was sent by ourselves
-            if (user.ircUsername === USERNAME) return;
-            user.id = commands.getUserId(user.ircUsername);
+			if (user.ircUsername === USERNAME) return;
+			user.id = commands.getUserId(user.ircUsername);
 
 			// Check for command prefix
 			if (message[0] !== "!") return;
@@ -46,6 +46,9 @@ const startOsuBot = async () => {
 
 			// Command list
 			switch (command) {
+				case prefix + "about":
+					await commands.about(user);
+					break;
 				case prefix + "help":
 					await commands.help(user);
 					break;
@@ -56,20 +59,22 @@ const startOsuBot = async () => {
 					await commands.newmaps(user, followdict);
 					break;
 				case prefix + "follow":
-                    // Write to file
-                    followdict = await commands.follow(user, followdict, message);
-                    var data = JSON.stringify(followdict);
-                    fs.writeFileSync('follow.json', data);
+					// Write to file
+					followdict = await commands.follow(user, followdict, message);
+					var data = JSON.stringify(followdict);
+					fs.writeFileSync('follow.json', data);
 					break;
 				case prefix + "unfollow":
-                    // Write to file
-                    followdict = await commands.unfollow(user, followdict, message);
-                    var data = JSON.stringify(followdict);
-                    fs.writeFileSync('follow.json', data);
+					// Write to file
+					followdict = await commands.unfollow(user, followdict, message);
+					var data = JSON.stringify(followdict);
+					fs.writeFileSync('follow.json', data);
 					break;
 				case prefix + "following":
 					await commands.following(user, followdict);
 					break;
+				default:
+					return await user.sendMessage(`This is not a valid command. Type !help for a list of available commands.`);
 			}
 		});
 	} catch (error) {
