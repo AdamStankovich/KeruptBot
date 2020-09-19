@@ -11,9 +11,9 @@
 ## About The Project
 
 An expansion of the open source project Bancho.js, used to interact with the official osu! server (Bancho). This is a basic IRC bot created with the intention of users being able to request a list of beatmaps from a specified map creator, Using commands such as 
-```
-!maps [mapper]
-```
+
+```!follow [mapper]```
+```!newmaps```
 
 ### Built With
 * [Node.js](https://nodejs.org/en/)
