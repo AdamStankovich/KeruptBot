@@ -52,9 +52,6 @@ const startOsuBot = async () => {
 				case prefix + "help":
 					await commands.help(user);
 					break;
-				case prefix + "hello":
-					await commands.hello(user);
-					break;
 				case prefix + "newmaps":
 					await commands.newmaps(user, followdict);
 					break;
