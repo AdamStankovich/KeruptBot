@@ -1,9 +1,10 @@
 
 // Import Libraries
 const fetch = require("node-fetch");
+const request = require("sync-request");
 
 // Personal info file
-const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
+const { CLIENTID, CLIENTSECRET } = require("./secret");
 
 
 // Retrieve access_token
@@ -53,6 +54,30 @@ function secondsToMinutes(seconds) {
 	}
 }
 
+function getUserId(username) {
+	var url = `https://osu.ppy.sh/users/${username}`;
+	var userid;
+	r = request("GET", url)
+	userid = parseInt(r.url.split('/')[4]);
+	return userid;
+}
+
+async function getUsername(userid, key) {
+	const res = await fetch(
+		`https://osu.ppy.sh/api/v2/users/${userid}`,
+		{
+			method: "get",
+			headers: {
+				// Authenticate OAuth2 using access_token ($key)
+				Authorization: `Bearer ${key}`,
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+		}
+	);
+	return res.json();
+}
+
 
 ////////////////////////////////// COMMANDS //////////////////////////////////
 
@@ -65,17 +90,17 @@ async function help(user) {
 
 // Says hello to the user
 async function hello(user) {
-	return await user.sendMessage(`Sup ${user.ircUsername}`);
+	return await user.sendMessage(`Sup ${user.id}`);
 }
 
 // Gets the user new maps
 async function newmaps(user, followdict) {
-	if (followdict[user.ircUsername] !== undefined) {
+	if (followdict[user.id] !== undefined) {
 		var json = await getAccessTokenPromise();
 		var key = json.access_token;
-		for (var i = 0; i < followdict[user.ircUsername].length; i++) {
+		for (var i = 0; i < followdict[user.id].length; i++) {
 			json = await getBeatmaps(
-				followdict[user.ircUsername][i],
+				followdict[user.id][i],
 				"unranked",
 				key
 			);
@@ -92,39 +117,47 @@ async function newmaps(user, followdict) {
 
 // Lets the user follow a mapper
 async function follow(user, followdict, message) {
-	// Get the userID from the message
-	var userid = message.split(" ")[1];
+	
+	// Get the user from the message
+	var username = message.split(" ")[1];
+
+	var userid = getUserId(username);
+
 	// If the user who sent the message is already in the dictionary
-	if (followdict[user.ircUsername]) {
+	if (followdict[user.id]) {
 		// If the user already follows the mapper, return
-		if (followdict[user.ircUsername].includes(userid)) {
-			await user.sendMessage(`You already follow ${userid}, dumbass.`);
+		if (followdict[user.id].includes(userid)) {
+			await user.sendMessage(`You already follow ${username}, dumbass.`);
 			return followdict;
 		}
 		// Append the mapper to the dictionary
-		followdict[user.ircUsername].push(userid);
-		await user.sendMessage(`You followed ${userid}.`);
+		followdict[user.id].push(userid);
+		await user.sendMessage(`You followed ${username}.`);
 		return followdict;
 	}
 	// If the user who sent the message is NOT already in the dictionary
 	else {
 		// Create the new key in the dictionary with the mapper as the value in an array
-		followdict[user.ircUsername] = [userid];
-		await user.sendMessage(`You followed ${userid}.`);
+		followdict[user.id] = [userid];
+		await user.sendMessage(`You followed ${username}.`);
 		return followdict;
 	}
 }
 
 // Lets the user unfollow a mapper
 async function unfollow(user, followdict, message) {
-	var userid = message.split(" ")[1];
-	if (followdict[user.ircUsername].includes(userid)) {
-		unfollow = followdict[user.ircUsername].indexOf(userid);
-		followdict[user.ircUsername].splice(unfollow, 1);
-		await user.sendMessage(`You unfollowed ${userid}`);
+	// Get the user from the message
+	var username = message.split(" ")[1];
+
+	var userid = getUserId(username);
+
+	if (followdict[user.id].includes(userid)) {
+		unfollow = followdict[user.id].indexOf(userid);
+		followdict[user.id].splice(unfollow, 1);
+		await user.sendMessage(`You unfollowed ${username}`);
 		return followdict;
 	} else {
-		await user.sendMessage(`You don't follow ${userid}, dumbass.`);
+		await user.sendMessage(`You don't follow ${username}, dumbass.`);
 		return followdict;
 	}
 }
@@ -132,16 +165,20 @@ async function unfollow(user, followdict, message) {
 // Shows a list of mappers the user is following
 async function following(user, followdict) {
 	var str = ``
-	for (var i = 0; i < followdict[user.ircUsername].length; i++) {
-		if (i !== followdict[user.ircUsername].length - 1) {
-			str += `${followdict[user.ircUsername][i]}, `
+	var json = await getAccessTokenPromise();
+	var key = json.access_token;
+	for (var i = 0; i < followdict[user.id].length; i++) {
+		var username = await getUsername(followdict[user.id][i], key);
+		username = username.username;
+		if (i !== followdict[user.id].length - 1) {
+			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
 		}
 		else {
-			str += `${followdict[user.ircUsername][i]}`
+			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
 		}
 
 	}
 	await user.sendMessage(`You are following: ${str}`);
 }
 
-module.exports = { help, hello, newmaps, follow, unfollow, following };
+module.exports = { help, hello, newmaps, follow, unfollow, following, getUserId };
