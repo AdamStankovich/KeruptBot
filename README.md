@@ -75,43 +75,35 @@ const startOsuBot = async () => {
 ```
 - Command functions called from commands.js trailing case prefix statements.
 ```js
-			// Check if message was sent by ourselves
-			if (user.ircUsername === USERNAME) return;
-			user.id = commands.getUserId(user.ircUsername);
-
-			// Check for command prefix
-			if (message[0] !== "!") return;
-			const command = message.split(" ")[0].toLowerCase();
-
-			// Command list
-			switch (command) {
-				case prefix + "about":
-					await commands.about(user);
-					break;
-				case prefix + "help":
-					await commands.help(user);
-					break;
-				case prefix + "newmaps":
-					await commands.newmaps(user, followdict);
-					break;
-				case prefix + "follow":
-					// Write to file
-					followdict = await commands.follow(user, followdict, message);
-					var data = JSON.stringify(followdict);
-					fs.writeFileSync('follow.json', data);
-					break;
-				case prefix + "unfollow":
-					// Write to file
-					followdict = await commands.unfollow(user, followdict, message);
-					var data = JSON.stringify(followdict);
-					fs.writeFileSync('follow.json', data);
-					break;
-				case prefix + "following":
-					await commands.following(user, followdict);
-					break;
-				default:
-					return await user.sendMessage(`This is not a valid command. Type !help for a list of available commands.`);
-			}
+// Command list
+switch (command) {
+	case prefix + "about":
+		await commands.about(user);
+		break;
+	case prefix + "help":
+		await commands.help(user);
+		break;
+	case prefix + "newmaps":
+		await commands.newmaps(user, followdict);
+		break;
+	case prefix + "follow":
+		// Write to file
+		followdict = await commands.follow(user, followdict, message);
+		var data = JSON.stringify(followdict);
+		fs.writeFileSync('follow.json', data);
+		break;
+	case prefix + "unfollow":
+		// Write to file
+		followdict = await commands.unfollow(user, followdict, message);
+		var data = JSON.stringify(followdict);
+		fs.writeFileSync('follow.json', data);
+		break;
+	case prefix + "following":
+		await commands.following(user, followdict);
+		break;
+	default:
+		return await user.sendMessage(`This is not a valid command. Type !help for a list of available commands.`);
+}
 ```
 - OsuBot function is intiated
 ```js
