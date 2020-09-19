@@ -83,13 +83,13 @@ async function getUsername(userid, key) {
 // List commands for the user
 async function help(user) {
 	return await user.sendMessage(
-		`List of commands: !about, !follow [mappername], !unfollow [mappername], !newmaps, !following`
+		`Find a list of commands here: [https://github.com/apsofatl/OsuMapBot/wiki Commands]`
 	);
 }
 
 // About this bot
 async function about(user) {
-	return await user.sendMessage(`You can use this bot to follow your favorite mappers. Instead of having to go through all of their profiles looking for new maps, this bot will send you links to anything they've uploaded in the last 30 days. Created by [https://osu.ppy.sh/users/4398740 Kerupt] and [https://osu.ppy.sh/users/7965914 SouthTTV]`);
+	return await user.sendMessage(`You can use this bot to follow your favorite mappers. It can send links to any beatmaps they've uploaded in the last 30 days. Created by [https://osu.ppy.sh/users/4398740 Kerupt] and [https://osu.ppy.sh/users/7965914 SouthTTV]. Repository can be found [https://github.com/apsofatl/OsuMapBot here]`);
 }
 
 // Gets the user new maps
@@ -109,7 +109,8 @@ async function newmaps(user, followdict) {
 				);
 			}
 		}
-	} else {
+	}
+	else {
 		return await user.sendMessage(`You aren't following any mappers yet.`);
 	}
 }
