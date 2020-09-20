@@ -98,18 +98,21 @@ async function newmaps(user, followdict) {
 		var json = await getAccessTokenPromise();
 		var key = json.access_token;
 		for (var i = 0; i < followdict[user.id].length; i++) {
-			json = await getBeatmaps(
-				followdict[user.id][i],
-				"unranked",
-				key
-			);
-			for (var j = 0; j < json.length; j++) {
-				await user.sendMessage(
-					`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉`
-				);
+			json = await getBeatmaps(followdict[user.id][i],"unranked",key);
+			// Check if any new beatmaps
+			if (json.length !== 0) {
+				// Loop through all new beatmaps
+				for (var j = 0; j < json.length; j++) {
+					await user.sendMessage(`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉`);
+				}
+			}
+			// If no beatmaps have recently been uploaded
+			else {
+				return await user.sendMessage("The mappers you follow have not uploaded any beatmaps recently.")
 			}
 		}
 	}
+	// If the user doesn't follow any mappers
 	else {
 		return await user.sendMessage(`You aren't following any mappers yet.`);
 	}
@@ -165,18 +168,50 @@ async function following(user, followdict) {
 	var str = ``
 	var json = await getAccessTokenPromise();
 	var key = json.access_token;
+	str = `You are following: `
 	for (var i = 0; i < followdict[user.id].length; i++) {
 		var username = await getUsername(followdict[user.id][i], key);
 		username = username.username;
+		
+		// If not last iteration
 		if (i !== followdict[user.id].length - 1) {
-			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			// If length will be less than or equal to 450 characters
+			if ((str + `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`).length <= 450) {
+				// Add next username
+				str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			}
+			// Otherwise
+			else {
+				// Cut off comma and space
+				str = str.substring(0, str.length - 2)
+				// Send the message
+				await user.sendMessage(`${str}`);
+				// Start building next string
+				str = `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			}
 		}
+		// Otherwise
 		else {
-			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+			// If length will be less than or equal to 450 characters
+			if ((str + `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`).length <= 450) {
+				// Add last username without comma
+				str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+				// Send finished string
+				return await user.sendMessage(`${str}`);
+			}
+			// Otherwise
+			else {
+				// Cut off comma and space
+				str = str.substring(0, str.length - 2)
+				// Send message
+				await user.sendMessage(`${str}`);
+				// Rebuild string with last username
+				str = `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+				// Send last username
+				return await user.sendMessage(`${str}`);
+			}
 		}
-
 	}
-	await user.sendMessage(`You are following: ${str}`);
 }
 
 module.exports = { about, help, newmaps, follow, unfollow, following, getUserId };
