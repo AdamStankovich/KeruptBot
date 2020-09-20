@@ -2,10 +2,9 @@
 // Import Libraries
 const Banchojs = require("bancho.js");
 const fs = require("fs");
-const fetch = require("node-fetch");
 
 // Personal info file
-const { CLIENTID, CLIENTSECRET, USERNAME, PASSWORD } = require("./secret");
+const { USERNAME, PASSWORD } = require("./secret");
 
 // Commands file
 const commands = require("./commands");
@@ -15,7 +14,6 @@ const client = new Banchojs.BanchoClient({
 	// osu! IRC username/password
 	username: USERNAME,
 	password: PASSWORD,
-	apiKey: CLIENTSECRET,
 });
 
 // Prefix for the commands(what the user types). i.e. (!, ., etc.)
