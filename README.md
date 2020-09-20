@@ -297,18 +297,50 @@ async function following(user, followdict) {
 	var str = ``
 	var json = await getAccessTokenPromise();
 	var key = json.access_token;
+	str = `You are following: `
 	for (var i = 0; i < followdict[user.id].length; i++) {
 		var username = await getUsername(followdict[user.id][i], key);
 		username = username.username;
+		
+		// If not last iteration
 		if (i !== followdict[user.id].length - 1) {
-			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			// If length will be less than or equal to 450 characters
+			if ((str + `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`).length <= 450) {
+				// Add next username
+				str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			}
+			// Otherwise
+			else {
+				// Cut off comma and space
+				str = str.substring(0, str.length - 2)
+				// Send the message
+				await user.sendMessage(`${str}`);
+				// Start building next string
+				str = `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}], `
+			}
 		}
+		// Otherwise
 		else {
-			str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+			// If length will be less than or equal to 450 characters
+			if ((str + `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`).length <= 450) {
+				// Add last username without comma
+				str += `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+				// Send finished string
+				return await user.sendMessage(`${str}`);
+			}
+			// Otherwise
+			else {
+				// Cut off comma and space
+				str = str.substring(0, str.length - 2)
+				// Send message
+				await user.sendMessage(`${str}`);
+				// Rebuild string with last username
+				str = `[https://osu.ppy.sh/users/${followdict[user.id][i]} ${username}]`
+				// Send last username
+				return await user.sendMessage(`${str}`);
+			}
 		}
-
 	}
-	await user.sendMessage(`You are following: ${str}`);
 }
 ```
 - Functions exported
