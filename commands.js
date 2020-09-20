@@ -94,11 +94,15 @@ async function about(user) {
 
 // Gets the user new maps
 async function newmaps(user, followdict) {
+	if (followdict[user.id].length == 0) {
+		return await user.sendMessage(`You aren't following any mappers yet. Type !follow [mappername] to follow someone.`);
+	}
 	if (followdict[user.id] !== undefined) {
 		var json = await getAccessTokenPromise();
 		var key = json.access_token;
 		for (var i = 0; i < followdict[user.id].length; i++) {
-			json = await getBeatmaps(followdict[user.id][i],"unranked",key);
+			json = await getBeatmaps(followdict[user.id][i], "unranked", key);
+
 			// Check if any new beatmaps
 			if (json.length !== 0) {
 				// Loop through all new beatmaps
@@ -108,7 +112,7 @@ async function newmaps(user, followdict) {
 			}
 			// If no beatmaps have recently been uploaded
 			else {
-				return await user.sendMessage("The mappers you follow have not uploaded any beatmaps recently.")
+				await user.sendMessage("The mappers you follow have not uploaded any beatmaps recently.")
 			}
 		}
 	}
@@ -169,10 +173,13 @@ async function following(user, followdict) {
 	var json = await getAccessTokenPromise();
 	var key = json.access_token;
 	str = `You are following: `
+	if (followdict[user.id].length == 0) {
+		return await user.sendMessage(`You aren't following any mappers yet. Type !follow [mappername] to follow someone.`);
+	}
 	for (var i = 0; i < followdict[user.id].length; i++) {
 		var username = await getUsername(followdict[user.id][i], key);
 		username = username.username;
-		
+
 		// If not last iteration
 		if (i !== followdict[user.id].length - 1) {
 			// If length will be less than or equal to 450 characters
