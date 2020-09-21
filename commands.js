@@ -27,9 +27,9 @@ async function getAccessTokenPromise() {
 }
 
 // Retrieve beatmaps from mapper
-async function getBeatmaps(user, type, key) {
+async function getBeatmaps(user, type, limit, key) {
 	const res = await fetch(
-		`https://osu.ppy.sh/api/v2/users/${user}/beatmapsets/${type}`,
+		`https://osu.ppy.sh/api/v2/users/${user}/beatmapsets/${type}?limit=${limit}`,
 		{
 			method: "get",
 			headers: {
@@ -101,13 +101,17 @@ async function newmaps(user, followdict) {
 		var json = await getAccessTokenPromise();
 		var key = json.access_token;
 		for (var i = 0; i < followdict[user.id].length; i++) {
-			json = await getBeatmaps(followdict[user.id][i], "unranked", key);
-
+			// set variables for ranked/pending beatmaps
+			json = await getBeatmaps(followdict[user.id][i], "unranked", "10", key);
+			json1 = await getBeatmaps(followdict[user.id][i], "ranked_and_approved", "10", key);
 			// Check if any new beatmaps
-			if (json.length !== 0) {
+			if (json.length !== 0 || json1.length !== 0) {
 				// Loop through all new beatmaps
 				for (var j = 0; j < json.length; j++) {
-					await user.sendMessage(`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉`);
+					await user.sendMessage(`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json[j].beatmaps[0].last_updated)).toLocaleDateString()}`);
+				}
+				for (var j = 0; j < json1.length; j++) {
+					await user.sendMessage(`${json1[j].creator} - [https://osu.ppy.sh/b/${json1[j].beatmaps[0].id} ${json1[j].artist} - ${json1[j].title}] | Length: ${secondsToMinutes(json1[j].beatmaps[0].total_length)} ⌛ | BPM: ${json1[j].beatmaps[0].bpm} ♪ | AR: ${json1[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json1[j].beatmaps[0].last_updated)).toLocaleDateString()}`);
 				}
 			}
 			// If no beatmaps have recently been uploaded
