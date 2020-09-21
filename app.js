@@ -51,7 +51,9 @@ const startOsuBot = async () => {
 					await commands.help(user);
 					break;
 				case prefix + "newmaps":
-					await commands.newmaps(user, followdict);
+                    followdict = await commands.newmaps(user, followdict);
+                    var data = JSON.stringify(followdict);
+					fs.writeFileSync('follow.json', data);
 					break;
 				case prefix + "follow":
 					// Write to file
