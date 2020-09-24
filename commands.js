@@ -107,7 +107,7 @@ async function newmaps(user, followdict) {
 		for (var i = 0; i < followdict[user.id].length; i++) {
 			// set variables for ranked/pending beatmaps
 			json = await getBeatmaps(followdict[user.id][i][0], "unranked", "10", key);
-			json1 = await getBeatmaps(followdict[user.id][i][0], "ranked_and_approved", "2", key);
+			json1 = await getBeatmaps(followdict[user.id][i][0], "ranked_and_approved", "3", key);
 			// Check if any new beatmaps
 			if (json.length !== 0 || json1.length !== 0) {
 				// Loop through all new beatmaps
@@ -119,7 +119,7 @@ async function newmaps(user, followdict) {
 					}
 				}
 				for (var j = 0; j < json1.length; j++) {
-					if (Date.parse(json1[j].beatmaps[0].last_updated) > followdict[user.id][i][1]) {
+					if (Date.parse(json1[j].beatmaps[0].last_updated) > followdict[user.id][i][1] && Date.parse(json1[j].beatmaps[0].last_updated) > Date.now() - 2592000000) {
 						// If new maps
 						updatedMaps = true;
 						await user.sendMessage(`${json1[j].creator} - [https://osu.ppy.sh/b/${json1[j].beatmaps[0].id} ${json1[j].artist} - ${json1[j].title}] | Length: ${secondsToMinutes(json1[j].beatmaps[0].total_length)} ⌛ | BPM: ${json1[j].beatmaps[0].bpm} ♪ | AR: ${json1[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json1[j].beatmaps[0].last_updated)).toLocaleDateString()} ☀`);
@@ -127,9 +127,9 @@ async function newmaps(user, followdict) {
 				}
 				newMaps = true;
 			}
-		
-		// Update the mappers date
-		followdict[user.id][i][1] = Date.now();
+
+			// Update the mappers date
+			followdict[user.id][i][1] = Date.now();
 
 		}
 		// If no beatmaps have recently been uploaded
