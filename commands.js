@@ -6,10 +6,6 @@ const request = require("sync-request");
 // Personal info file
 const { CLIENTID, CLIENTSECRET } = require("./secret");
 
-// Message limiter
-var messageCount = 0;
-var messageQueue = [];
-var sendMessageRunning = false;
 
 // Retrieve access_token
 async function getAccessTokenPromise() {
@@ -82,31 +78,6 @@ async function getUsername(userid, key) {
 	return res.json();
 }
 
-function QueueMessage(user, message) {
-	messageQueue.unshift([user, message]);
-	if (!sendMessageRunning) {
-		SendQueuedMessages();
-	}
-}
-
-async function SendQueuedMessages() {
-	sendMessageRunning = true;
-	while (messageCount <= 10 && messageQueue.length > 0) {
-		messageCount++;
-		messageArray = messageQueue.pop();
-		await messageArray[0].sendMessage(messageArray[1]);
-	}
-	sendMessageRunning = false;
-}
-
-function ResetMessageCount() {
-	messageCount = 0;
-	if (messageQueue.length > 0 && !sendMessageRunning) {
-		SendQueuedMessages();
-	}
-	setTimeout(ResetMessageCount, 5000);
-}
-
 ////////////////////////////////// COMMANDS //////////////////////////////////
 
 // List commands for the user
@@ -144,14 +115,14 @@ async function newmaps(user, followdict) {
 					if (Date.parse(json[j].beatmaps[0].last_updated) > followdict[user.id][i][1]) {
 						// If new maps
 						updatedMaps = true;
-						//await user.sendMessage(`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json[j].beatmaps[0].last_updated)).toLocaleDateString()} ☀`);
+						await user.sendMessage(`${json[j].creator} - [https://osu.ppy.sh/b/${json[j].beatmaps[0].id} ${json[j].artist} - ${json[j].title}] | Length: ${secondsToMinutes(json[j].beatmaps[0].total_length)} ⌛ | BPM: ${json[j].beatmaps[0].bpm} ♪ | AR: ${json[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json[j].beatmaps[0].last_updated)).toLocaleDateString()} ☀`);
 					}
 				}
 				for (var j = 0; j < json1.length; j++) {
 					if (Date.parse(json1[j].beatmaps[0].last_updated) > followdict[user.id][i][1] && Date.parse(json1[j].beatmaps[0].last_updated) > Date.now() - 2592000000) {
 						// If new maps
 						updatedMaps = true;
-						QueueMessage(user, (`${json1[j].creator} - [https://osu.ppy.sh/b/${json1[j].beatmaps[0].id} ${json1[j].artist} - ${json1[j].title}] | Length: ${secondsToMinutes(json1[j].beatmaps[0].total_length)} ⌛ | BPM: ${json1[j].beatmaps[0].bpm} ♪ | AR: ${json1[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json1[j].beatmaps[0].last_updated)).toLocaleDateString()} ☀`));
+						await user.sendMessage(`${json1[j].creator} - [https://osu.ppy.sh/b/${json1[j].beatmaps[0].id} ${json1[j].artist} - ${json1[j].title}] | Length: ${secondsToMinutes(json1[j].beatmaps[0].total_length)} ⌛ | BPM: ${json1[j].beatmaps[0].bpm} ♪ | AR: ${json1[j].beatmaps[0].ar} ☉ | Date Uploaded: ${new Date(Date.parse(json1[j].beatmaps[0].last_updated)).toLocaleDateString()} ☀`);
 					}
 				}
 				newMaps = true;
@@ -275,7 +246,5 @@ async function following(user, followdict) {
 		}
 	}
 }
-
-ResetMessageCount();
 
 module.exports = { about, help, newmaps, follow, unfollow, following, getUserId };
