@@ -1,5 +1,5 @@
 # IRC osu! Map Request Bot
-*Contributors:* [AdamStankovich](https://github.com/adamstankovich), [jpasqui](https://github.com/jpasqui)
+*Contributors:* [adamstankovich](https://github.com/adamstankovich), [jpasqui](https://github.com/jpasqui)
 
 ## Table of Contents
 
