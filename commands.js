@@ -57,9 +57,14 @@ function secondsToMinutes(seconds) {
 function getUserId(username) {
 	var url = `https://osu.ppy.sh/users/${username}`;
 	var userid;
-	r = request("GET", url)
+	r = request("GET", url);
 	userid = parseInt(r.url.split('/')[4]);
-	return userid;
+	if(isNaN(userid)) {
+		return false;
+	}
+	else {
+		return userid;
+	}
 }
 
 async function getUsername(userid, key) {
@@ -152,27 +157,32 @@ async function newmaps(user, followdict) {
 async function follow(user, followdict, message) {
 
 	// Get the user from the message
-	var username = message.split(" ")[1];
-
+	var username = message.slice(8);
 	var userid = getUserId(username);
 
-	// If the user who sent the message is already in the dictionary
-	if (followdict[user.id]) {
-		// If the user already follows the mapper, return
-		if (followdict[user.id].includes(userid)) {
-			await user.sendMessage(`You already follow ${username}, dumbass.`);
+	if (userid !== false) {
+		// If the user who sent the message is already in the dictionary
+		if (followdict[user.id]) {
+			// If the user already follows the mapper, return
+			if (followdict[user.id].includes(userid)) {
+				await user.sendMessage(`You already follow ${username}, dumbass.`);
+				return followdict;
+			}
+			// Append the mapper to the dictionary
+			followdict[user.id].push([userid, 0]);
+			await user.sendMessage(`You followed ${username}.`);
 			return followdict;
 		}
-		// Append the mapper to the dictionary
-		followdict[user.id].push([userid, 0]);
-		await user.sendMessage(`You followed ${username}.`);
-		return followdict;
+		// If the user who sent the message is NOT already in the dictionary
+		else {
+			// Create the new key in the dictionary with the mapper as the value in an array
+			followdict[user.id] = [[userid, 0]];
+			await user.sendMessage(`You followed ${username}.`);
+			return followdict;
+		}
 	}
-	// If the user who sent the message is NOT already in the dictionary
 	else {
-		// Create the new key in the dictionary with the mapper as the value in an array
-		followdict[user.id] = [[userid, 0]];
-		await user.sendMessage(`You followed ${username}.`);
+		await user.sendMessage(`${username} is not a valid user.`);
 		return followdict;
 	}
 }
@@ -180,13 +190,15 @@ async function follow(user, followdict, message) {
 // Lets the user unfollow a mapper
 async function unfollow(user, followdict, message) {
 	// Get the user from the message
-	var username = message.split(" ")[1];
+	var username = message.slice(10);
 	var userid = getUserId(username);
-	for (var i = 0; i < followdict[user.id].length; i++) {
-		if (followdict[user.id][i][0] == userid) {
-			followdict[user.id].splice(i, 1);
-			await user.sendMessage(`You unfollowed ${username}`);
-			return followdict;
+	if (userid !== false) {
+		for (var i = 0; i < followdict[user.id].length; i++) {
+			if (followdict[user.id][i][0] == userid) {
+				followdict[user.id].splice(i, 1);
+				await user.sendMessage(`You unfollowed ${username}`);
+				return followdict;
+			}
 		}
 	}
 	await user.sendMessage(`You don't follow ${username}, dumbass.`);
