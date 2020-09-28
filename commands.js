@@ -164,9 +164,11 @@ async function follow(user, followdict, message) {
 		// If the user who sent the message is already in the dictionary
 		if (followdict[user.id]) {
 			// If the user already follows the mapper, return
-			if (followdict[user.id].includes(userid)) {
-				await user.sendMessage(`You already follow ${username}, dumbass.`);
-				return followdict;
+			for (var i = 0; i < followdict[user.id].length; i++) {
+				if (followdict[user.id][i][0] == userid) {
+					await user.sendMessage(`You already follow ${username}, dumbass.`);
+					return followdict;
+				}
 			}
 			// Append the mapper to the dictionary
 			followdict[user.id].push([userid, 0]);
