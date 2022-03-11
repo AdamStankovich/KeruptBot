@@ -1,3 +1,5 @@
+### Read the Wiki first! https://github.com/AdamStankovich/KeruptBot/wiki 
+
 # IRC osu! Map Request Bot
 *Contributors:* [adamstankovich](https://github.com/adamstankovich), [jpasqui](https://github.com/jpasqui)
 
